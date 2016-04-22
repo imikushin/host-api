@@ -1,0 +1,56 @@
+package: github.com/rancherio/host-api
+
+import:
+- package: github.com/Sirupsen/logrus
+  version: v0.9.0
+
+- package: github.com/dgrijalva/jwt-go
+  version: 47b263f020574c14765ecc3ea88f0e9447046632
+
+- package: github.com/docker/docker
+  version: v1.9.1
+
+- package: github.com/fsouza/go-dockerclient
+  version: d0dcc54ccb72ff550f503cb56e1ee839a79c8428
+
+- package: github.com/golang/glog
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
+
+- package: github.com/google/cadvisor
+  version: 44f86044e109c7b3b603b999b926e864f7f7941c
+
+- package: github.com/gorilla/context
+  version: 14f550f51af52180c2eefed15e5fd18d63c0a64a
+
+- package: github.com/gorilla/mux
+  version: e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+
+- package: github.com/gorilla/websocket
+  version: ea78a26f8048532764e0a020ee901572dc7f6046
+
+- package: github.com/patrickmn/go-cache
+  version: 1881a9bccb818787f68c52bfba648c6cf34c34fa
+
+- package: github.com/pborman/uuid
+  version: c55201b036063326c5b1b89ccfe45a184973d073
+
+- package: github.com/rakyll/globalconf
+  version: 415abc325023f1a00cd2d9fa512e0e71745791a2
+
+- package: github.com/rakyll/goini
+  version: 907cca0f578a5316fb864ec6992dc3d9730ec58c
+
+- package: github.com/rancherio/go-machine-service
+  version: e20676a7fc92b12ca2af1901d16d6e8d6aaea6d2
+
+- package: github.com/rancherio/go-rancher
+  version: 1cb0311177ed21b92924bdf1646a212fede035ef
+
+- package: github.com/rancherio/websocket-proxy
+  version: v0.16.3
+
+- package: gopkg.in/check.v1
+  version: 11d3bc7aa68e238947792f30573146a3231fc0f1
+
+- package: gopkg.in/fsnotify.v1
+  version: 96c060f6a6b7e0d6f75fddd10efeaca3e5d1bcb0
