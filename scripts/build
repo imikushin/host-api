@@ -1,13 +1,10 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
 cd $(dirname $0)/..
 
 if [ -f ./build/bootstrap.envs ];then
     . ./build/bootstrap.envs
 fi
-
-. ./scripts/common_functions
-
-set_project_vars
 
 go build -o bin/$(basename $(pwd))
