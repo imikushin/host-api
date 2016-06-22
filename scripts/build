@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -x
 
 cd $(dirname $0)/..
 
@@ -7,4 +7,4 @@ if [ -f ./build/bootstrap.envs ];then
     . ./build/bootstrap.envs
 fi
 
-go build -o bin/$(basename $(pwd))
+go build -ldflags "-linkmode external -extldflags -static -s" -o bin/host-api

@@ -1,35 +1,30 @@
-FROM ubuntu:16.04
-# FROM arm64=armhf/ubuntu:16.04 arm=armhf/ubuntu:16.04
+FROM alpine:3.4
+# FROM arm=armhf/alpine:3.4
 
 ARG DAPPER_HOST_ARCH
 ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
 
+RUN apk -U add bash gcc musl-dev go go-tools git perl linux-headers openssl util-linux
 
-RUN apt-get update && \
-    apt-get install -y \
-        build-essential \
-        ca-certificates \
-        curl \
-        gccgo \
-        git \
-        less \
-        locales \
-        vim \
-        wget \
-        uuid-runtime
+ENV GOPATH=/go PATH=/go/bin:${PATH}
 
-ENV GO_VERSION=1.6.2
-RUN ln -sf go-6 /usr/bin/go && \
-    curl -sfL https://storage.googleapis.com/golang/go${GO_VERSION}.src.tar.gz | tar -xzf - -C /usr/local && \
-    cd /usr/local/go/src && \
-    GOROOT_BOOTSTRAP=/usr GOARCH=${HOST_ARCH} GOHOSTARCH=${HOST_ARCH} ./make.bash && \
-    rm /usr/bin/go
 
-ENV GOPATH=/go PATH=/go/bin:/usr/local/go/bin:${PATH}
+RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
+
+ENV DOCKER_URL_amd64=https://get.docker.com/builds/Linux/x86_64/docker-1.10.3
+ENV DOCKER_URL_arm=https://github.com/rancher/docker/releases/download/v1.10.3-ros1/docker-1.10.3_arm
+ENV DOCKER_URL DOCKER_URL_${ARCH}
+
+RUN apk add curl wget ca-certificates socat
+RUN wget -O - ${!DOCKER_URL} > /usr/bin/docker && chmod +x /usr/bin/docker
 
 ENV DAPPER_SOURCE /go/src/github.com/rancherio/host-api
 ENV DAPPER_OUTPUT ./dist
+ENV DAPPER_DOCKER_SOCKET true
+ENV DAPPER_RUN_ARGS --net=host --uts=host
+ENV SHELL /bin/bash
 
 WORKDIR ${DAPPER_SOURCE}
 
-CMD ./scripts/release
+ENTRYPOINT ["./scripts/entry"]
+CMD ["ci"]
